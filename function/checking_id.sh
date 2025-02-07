@@ -14,12 +14,12 @@ if ! curl -s "https://api.telegram.org/bot$token/getMe" | grep -q '"ok":true'; t
     exit 1
 fi
 
-if ! curl -s "https://api.telegram.org/bot$token/getChat?chat_id=$group_id" | grep -q '"ok":true'; then
+if [ ! -z "$group_id" ] && ! curl -s "https://api.telegram.org/bot$token/getChat?chat_id=$group_id" | grep -q '"ok":true'; then
     echo -e "\033[31mInvalid chat ID.\033[0m"
     exit 1
 fi
 
-if ! curl -s "https://api.telegram.org/bot$token/getChat?chat_id=$message_id" | grep -q '"ok":true'; then
+if [ ! -z $message_id ] && ! curl -s "https://api.telegram.org/bot$token/getChat?chat_id=$message_id" | grep -q '"ok":true'; then
     echo -e "\033[31mInvalid user ID.\033[0m"
     exit 1
 fi

@@ -20,8 +20,8 @@ while [[ $# -ne 0 ]]; do
 		eval "$script" > >(tee -a /dev/null) 2> >(tee -a /tmp/errAlertBuild >&2)
 		status_code=$?
 	else
-		eval "$script" >/dev/null 2> >(tee -a /tmp/errAlertBuild >&2)
-		status_code=$?
+		eval "$script" >/dev/null 2> >(sed -E 's/^.*\/([^/]+): /\1: /' >> /tmp/errAlertBuild)
+		status_code=${PIPESTATUS[0]}
 	fi
 	end=$(date +%s)
 	duration=$(execution_time $start $end)
@@ -29,7 +29,7 @@ while [[ $# -ne 0 ]]; do
 	if [[ $status_code -ne 0 ]]; then
 		err=$(cat /tmp/errAlertBuild | tail -n 5)
 	fi
-	rm /tmp/errAlertBuild 2>/dev/null
+	rm /tmp/errAlertBuild 2> /dev/null
 
 	if [[ $err == "" ]]; then
 		MESSAGE="$script: Success ✅\nScript execution time: $duration\n"

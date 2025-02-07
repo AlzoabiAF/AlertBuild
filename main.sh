@@ -14,6 +14,8 @@ MESSAGE_ALL="▶️ The alertBuild Report:\n\n"
 MESSAGE=""
 
 
+source $SCRIPT_DIR/lib/getopts_long.sh
+
 source $SCRIPT_DIR/lib/support.sh
 
 source $SCRIPT_DIR/function/parsing_optins.sh

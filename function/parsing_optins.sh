@@ -1,6 +1,3 @@
-# processing options
-. $SCRIPT_DIR/lib/getopts_long.sh
-
 OPTLIND=1
 while getopts_long :u:g:haeso opt \
   long 0 \
